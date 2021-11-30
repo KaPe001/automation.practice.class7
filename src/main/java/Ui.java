@@ -3,29 +3,25 @@ import java.util.Scanner;
 
 public class Ui {
 
-    public void addProductToCartByName(String productName){
+    public void addProductToCartByName() {
+        Product product = new Product();
         Scanner sc = new Scanner(System.in);
-        int userChoice = 1;
+        Cart cart = new Cart();
 
-        do{
-            System.out.println("Select a product");
-
+        for (int i = 1; i <= cart.capacity; i++) {
+            System.out.println("Select " + i + " product to add to a cart");
             String userChoiceOfProduct = sc.next();
-            userChoice++;
-
-            System.out.println("Select a size");
-            String userChoiceOfSize = sc.next();
-
-            System.out.println("Enter the prize");
-            BigDecimal userEntersPrice = sc.nextBigDecimal();
-
-            System.out.println("Enter the amount of products, max 5");
+            System.out.println("Enter the price of a the product");
+            BigDecimal productPrice = sc.nextBigDecimal();
+            System.out.println("Enter the amount of products to add to a cart");
             int amountOfProducts = sc.nextInt();
 
-            Cart cart = new Cart();
-            cart.addProductToCart();
+            cart.addProductToCart(new Product(userChoiceOfProduct, productPrice), amountOfProducts);
 
-        }while(userChoice == 5);
-
+            BigDecimal result = productPrice.multiply(BigDecimal.valueOf(amountOfProducts));
+            System.out.println("Product: " + userChoiceOfProduct + ", product price: $" + productPrice + ", the amount of products: " + amountOfProducts +
+                    "\nPrice together: $" + result);
+        }
+        cart.printCart();
     }
 }
